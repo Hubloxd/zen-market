@@ -1,0 +1,52 @@
+[
+  {
+    "model": "shop.product",
+    "pk": 1,
+    "fields": {
+      "name": "Product 1",
+      "description": "This is the first product",
+      "price": 23.45,
+      "image_src": "/static/img/placeholder.webp"
+    }
+  },
+  {
+    "model": "shop.product",
+    "pk": 2,
+    "fields": {
+      "name": "Product 2",
+      "description": "This is the second product",
+      "price": 56.78,
+      "image_src": "/static/img/placeholder.webp"
+    }
+  },
+  {
+    "model": "shop.product",
+    "pk": 3,
+    "fields": {
+      "name": "Product 3",
+      "description": "This is the third product",
+      "price": 12.34,
+      "image_src": "/static/img/placeholder.webp"
+    }
+  },
+  {
+    "model": "shop.product",
+    "pk": 4,
+    "fields": {
+      "name": "Product 4",
+      "description": "This is the forth product",
+      "price": 114,
+      "image_src": "/static/img/placeholder.webp"
+    }
+  },
+  {
+    "model": "shop.product",
+    "pk": 5,
+    "fields": {
+      "name": "Product 5",
+      "description": "This is the fifth product",
+      "price": 1.5,
+      "image_src": "/static/img/placeholder.webp"
+    }
+  }
+]
