@@ -6,6 +6,8 @@
       "name": "Product 1",
       "description": "This is the first product",
       "price": 23.45,
+      "discount_price": 12,
+      "sale": true ,
       "image_src": "/static/img/placeholder.webp"
     }
   },
@@ -16,6 +18,7 @@
       "name": "Product 2",
       "description": "This is the second product",
       "price": 56.78,
+      "sale": false ,
       "image_src": "/static/img/placeholder.webp"
     }
   },
@@ -26,6 +29,7 @@
       "name": "Product 3",
       "description": "This is the third product",
       "price": 12.34,
+      "sale": false,
       "image_src": "/static/img/placeholder.webp"
     }
   },
@@ -36,6 +40,8 @@
       "name": "Product 4",
       "description": "This is the forth product",
       "price": 114,
+      "discount_price": 99,
+      "sale": true ,
       "image_src": "/static/img/placeholder.webp"
     }
   },
@@ -46,6 +52,8 @@
       "name": "Product 5",
       "description": "This is the fifth product",
       "price": 1.5,
+      "discount_price": 0.75,
+      "sale": true ,
       "image_src": "/static/img/placeholder.webp"
     }
   }

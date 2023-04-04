@@ -14,4 +14,4 @@ class CustomUserAdmin(UserAdmin):
 
 admin.site.register(ShopUser, CustomUserAdmin)
 admin.site.register(Product)
-admin.site.register(Offer)
+admin.site.register(Transaction)

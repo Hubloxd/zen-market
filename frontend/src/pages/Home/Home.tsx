@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Navbar from "../Navbar";
 import { APIProduct, API_URL} from "../../constants";
 import { CartContext } from '../../cart';
-import { getUserInfo, useDocumentTitle } from "../../utils";
+import { useDocumentTitle } from "../../utils";
 
 const Product = ({product} : {product: APIProduct}) => {
     const { addItemToCart} = useContext(CartContext);
@@ -14,12 +14,13 @@ const Product = ({product} : {product: APIProduct}) => {
         <div tabIndex={0} className="flex flex-col items-center relative mx-10 my-5 transition-all duration-500 hover:scale-105 border">
             <Link to={`/product/${product.id}/`} className=" top-0 ">
                 <img src={product.image_src} alt={product.image_src} width={450} height={300} loading="lazy"/>
-                {/* <img src='/static/img/weed.webp' alt={product.image_src} width={450} height={300} loading="lazy"/> */}
-
-                <span className="bg-black text-white absolute top-0 right-0 px-4 py-2">SALE</span>
+                {product.sale? <span className="bg-black text-white absolute top-0 right-0 px-4 py-2">SALE</span> : null}
             </Link>
                 <h1 className="capitalize font-bold text-2xl mt-4">{product.name}</h1>
-                <s className="text-xl mt-2 font-light">${product.price.toFixed(2)}</s>
+                {product.discount_price? 
+                <span className="text-xl mt-2"><s className="font-light">${product.price.toFixed(2)}</s> ${product.discount_price}</span>
+                : <span className="text-xl mt-2">${product.price}</span>
+                }
                 <button className="border rounded-lg border-black py-3 px-2 mt-16 mb-5 hover:bg-black hover:text-white transition-all duration-300" onClick={() => addItemToCart({
                     id: product.id,
                     name: product.name,

@@ -106,17 +106,25 @@ export default function Navbar(){
         <div id="navbar" className="flex flex-row justify-around py-4 text-white">
             <nav>
             <nav>
-                a
+                <Link to={'/'}>
+                    Home
+                </Link>
             </nav>
             </nav>
             <nav>
-                a
+                <Link to={'/'}>
+                    Home
+                </Link>
             </nav>
             <nav>
-                a
+                <Link to={'/'}>
+                    Home
+                </Link>
             </nav>
-            <nav>
-                a
+            <nav className=' bg-orange-500'>
+                <Link to={'/search?tag=sale'}>
+                    SALES
+                </Link>
             </nav>
         </div>
         </>

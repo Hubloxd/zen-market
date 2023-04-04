@@ -11,7 +11,6 @@ import Navbar from "../Navbar";
 import { Link } from 'react-router-dom';
 
 export default function Checkout(){
-    getUserInfo()
     useDocumentTitle('Zen Market | Checkout');
     const {cart, removeItemFromCart, resetCart} = useContext(CartContext);
     let sum = 0;

@@ -1,11 +1,6 @@
 from django.contrib.auth import login
-from django.db.models import Q
-from django.http import HttpRequest, HttpResponse, JsonResponse
-from django.shortcuts import get_object_or_404
-from django.contrib.auth.forms import UserCreationForm
 
 from rest_framework import status, viewsets, permissions, views
-from rest_framework.decorators import api_view, action
 from rest_framework.response import Response
 
 from rest.serializers import ProductSerializer, UserSerializer, BasicUserSerializer, LoginSerializer
@@ -28,13 +23,21 @@ class ProductsViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         """
-        Optionally restricts the returned products to a given user,
-        by filtering against a `name` query parameter in the URL.
+        Optionally restricts the returned products, by filtering
+        against a `name` or/and `tag` query parameter in the URL.
         """
         queryset = super().get_queryset()
         name = self.request.query_params.get('name')
-        if name is not None:
+        tag = self.request.query_params.get('tag')
+
+        if name:
             queryset = queryset.filter(name__contains=name)
+        if tag:
+            match tag:
+                case 'sale':
+                    queryset = queryset.filter(sale=True)
+                case _:
+                    queryset = queryset.none()
 
         return queryset
 
@@ -102,9 +105,10 @@ class LoginView(views.APIView):
     permission_classes = [permissions.AllowAny]
     serializer_class = LoginSerializer
 
-    def post(self, request, format=None):
+    def post(self, request):
         serializer = LoginSerializer(data=self.request.data, context={'request': self.request})
-        serializer.is_valid(raise_exception=True)
+        if not serializer.is_valid():
+            return Response(None, status=status.HTTP_401_UNAUTHORIZED)
 
         user = serializer.validated_data['user']
         login(request, user)
