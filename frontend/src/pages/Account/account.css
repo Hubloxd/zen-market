@@ -1,8 +1,8 @@
-#login-form{
-    padding: 4em 2em;
+#login-form {
+  padding: 4em 2em;
 }
 
-#login-form > input{
-    border: 1px solid black;
-    margin: 1em 0;
+#login-form > input {
+  border: 1px solid black;
+  margin: 1em 0;
 }
