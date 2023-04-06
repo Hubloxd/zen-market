@@ -54,7 +54,7 @@ class UserViewSet(viewsets.ModelViewSet):
         """
         This method determines the permissions required for each action on this viewset. For the list and retrieve
         actions, only authenticated users are allowed to access the data. For the metadata action, any user (even
-        unauthenticated ones) can access it. For the create action, any user can create a new user, but if the user
+        unauthenticated ones) can access it. For the `create` action, any user can create a new user, but if the user
         creating the user is not a superuser, the BasicUserSerializer serializer is used instead of the default
         UserSerializer. For all other actions, only admin users are allowed to access them.
         """
@@ -90,7 +90,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
     def create(self, *args, **kwargs):
         """
-        This method handles the create action. It first creates a new instance of the serializer class with the data
+        This method handles the `create` action. It first creates a new instance of the serializer class with the data
         from the request, and then checks if the data is valid. If it is, the new user is saved to the database and a
         success response is returned. If the data is not valid, an error response is returned.
         """
