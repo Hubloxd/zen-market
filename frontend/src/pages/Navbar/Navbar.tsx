@@ -2,7 +2,7 @@ import "./navbar.css";
 
 import { Link, useNavigate } from "react-router-dom";
 import React, { useContext, useState } from "react";
-import { CartContext } from "../../cart";
+import { CartContext } from "../../contexts/cart";
 
 const SearchInput = () => {
   const [query, setQuery] = useState("");

@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { APIProduct, API_URL } from "../../constants";
-import { CartContext } from "../../cart";
+import { CartContext } from "../../contexts/cart";
 import { useDocumentTitle } from "../../utils";
 
 import Navbar from "../Navbar";

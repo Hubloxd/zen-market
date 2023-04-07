@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import Navbar from "../Navbar";
 import { APIProduct, API_URL } from "../../constants";
-import { CartContext } from "../../cart";
+import { CartContext } from "../../contexts/cart";
 import { useDocumentTitle } from "../../utils";
 
 const Product = ({ product }: { product: APIProduct }) => {

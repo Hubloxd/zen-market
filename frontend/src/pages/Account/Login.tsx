@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { API_URL } from "../../constants";
-import { getUserInfo, useDocumentTitle } from "../../utils";
+import { useDocumentTitle } from "../../utils";
 
 import Navbar from "../Navbar";
 
@@ -42,7 +42,6 @@ export const LoginForm = () => {
       if (!response.ok) {
         throw response.status;
       }
-      getUserInfo();
       navigate("/account/profile/");
     } catch (error) {
       if (error === 401) {
@@ -80,15 +79,18 @@ export const LoginForm = () => {
       {error ? <div className="text-red-600 font-light">{error}</div> : null}
 
       <div className="flex flex-row w-full justify-between mt-5 items-center">
-        <Link to={"/account/register"}>
-          <button className="">Register</button>
-        </Link>
         <button
           className="w-1/3 border rounded-lg py-2 transition-colors hover:bg-black hover:text-white"
           type="submit"
         >
-          Submit
+          Log In
         </button>
+        <div className="flex flex-col">
+          <span className="font-extralight">not yet registered?</span>
+          <Link to={"/account/register"}>
+            <button className="float-right">Register</button>
+          </Link>
+        </div>
       </div>
     </form>
   );

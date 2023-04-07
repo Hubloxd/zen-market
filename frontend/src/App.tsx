@@ -7,9 +7,10 @@ import Search from "./pages/Search";
 import Product from "./pages/Product";
 import Checkout from "./pages/Checkout";
 
-import { CartProvider } from "./cart";
+import { CartProvider } from "./contexts/cart";
 import Login from "./pages/Account/Login";
 import Register from "./pages/Account/Register";
+import Profile from "./pages/Account/Profile";
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
               <Route path={""} element={<Login />} />
               <Route path={"login/"} element={<Login />} />
               <Route path={"register/"} element={<Register />} />
+              <Route path={"profile/"} element={<Profile />} />
             </Route>
             <Route path={"search"} element={<Search />} />
             <Route path={"checkout/"} element={<Checkout />} />

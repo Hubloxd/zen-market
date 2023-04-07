@@ -36,16 +36,17 @@ export function getCookie(name: string): string | null {
   return out ? out : null;
 }
 
-export function getUserInfo() {
-  fetch(API_URL + "users/")
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(response.status as unknown as string);
-      }
-      return response.json();
-    })
+export function getUserInfo(csrftoken: string) {
+  const options = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Cookie: `csrftoken=${csrftoken};`,
+    },
+  };
+
+  fetch(API_URL + "users/", options)
+    .then((response) => response.json())
     .then((response) => console.log(response))
-    .catch((error) => {
-      console.error(error);
-    });
+    .catch((err) => console.error(err));
 }

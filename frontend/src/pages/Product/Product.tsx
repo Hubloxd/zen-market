@@ -4,7 +4,7 @@ import { useEffect, useState, useContext } from "react";
 import NoPage from "../NoPage";
 import { APIProduct, API_URL } from "../../constants";
 
-import { CartContext } from "../../cart";
+import { CartContext } from "../../contexts/cart";
 import { useDocumentTitle } from "../../utils";
 
 export default function Product() {

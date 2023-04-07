@@ -3,7 +3,7 @@ import "./checkout.css";
 import { useContext } from "react";
 import { getUserInfo, useDocumentTitle } from "../../utils";
 
-import { CartContext } from "../../cart";
+import { CartContext } from "../../contexts/cart";
 
 import Navbar from "../Navbar";
 import { Link } from "react-router-dom";
