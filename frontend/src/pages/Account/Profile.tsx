@@ -1,16 +1,18 @@
-import { getCookie, getUserInfo } from "../../utils";
+import { useContext, useEffect } from "react";
 import Navbar from "../Navbar";
+import { UserContext } from "../../contexts/user";
 
 export default function Profile() {
-  const csrftoken = getCookie("csrftoken");
-
-  if (csrftoken) {
-    getUserInfo(csrftoken);
-  }
+  const { user, fetchUser } = useContext(UserContext);
+  
+  useEffect(() => {
+    fetchUser();
+  }, []);
 
   return (
     <>
       <Navbar />
+      <h1>Pozdro {JSON.stringify(user)}</h1>
     </>
   );
 }

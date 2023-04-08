@@ -1,5 +1,6 @@
-import { useRef, useEffect } from "react";
-import { API_URL } from "./constants";
+import { useRef, useEffect, useContext } from "react";
+import { API_URL, User } from "./constants";
+import { UserContext } from "./contexts/user";
 
 export function useDocumentTitle(
   title = "Zen Market",
@@ -36,7 +37,7 @@ export function getCookie(name: string): string | null {
   return out ? out : null;
 }
 
-export function getUserInfo(csrftoken: string) {
+export async function getUserInfo(csrftoken: string): Promise<User> {
   const options = {
     method: "GET",
     headers: {
@@ -45,8 +46,11 @@ export function getUserInfo(csrftoken: string) {
     },
   };
 
-  fetch(API_URL + "users/", options)
-    .then((response) => response.json())
-    .then((response) => console.log(response))
-    .catch((err) => console.error(err));
+  const response = await fetch(API_URL + "users/", options);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch user info: ${response.status}`);
+  }
+
+  const user = await response.json();
+  return user[0] as User;
 }

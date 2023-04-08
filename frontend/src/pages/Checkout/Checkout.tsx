@@ -1,7 +1,7 @@
 import "./checkout.css";
 
 import { useContext } from "react";
-import { getUserInfo, useDocumentTitle } from "../../utils";
+import { useDocumentTitle } from "../../utils";
 
 import { CartContext } from "../../contexts/cart";
 

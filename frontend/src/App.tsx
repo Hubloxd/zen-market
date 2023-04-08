@@ -11,28 +11,31 @@ import { CartProvider } from "./contexts/cart";
 import Login from "./pages/Account/Login";
 import Register from "./pages/Account/Register";
 import Profile from "./pages/Account/Profile";
+import { UserProvider } from "./contexts/user";
 
 export default function App() {
   return (
     <CartProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/">
-            <Route path={""} element={<Home />} />
-            <Route path="account/">
-              <Route path={""} element={<Login />} />
-              <Route path={"login/"} element={<Login />} />
-              <Route path={"register/"} element={<Register />} />
-              <Route path={"profile/"} element={<Profile />} />
+      <UserProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/">
+              <Route path={""} element={<Home />} />
+              <Route path="account/">
+                <Route path={""} element={<Login />} />
+                <Route path={"login/"} element={<Login />} />
+                <Route path={"register/"} element={<Register />} />
+                <Route path={"profile/"} element={<Profile />} />
+              </Route>
+              <Route path={"search"} element={<Search />} />
+              <Route path={"checkout/"} element={<Checkout />} />
+              <Route path={`product/:productId`} element={<Product />} />
             </Route>
-            <Route path={"search"} element={<Search />} />
-            <Route path={"checkout/"} element={<Checkout />} />
-            <Route path={`product/:productId`} element={<Product />} />
-          </Route>
-          <Route path="/pl"></Route>
-          <Route path={"*"} element={<NoPage />} />
-        </Routes>
-      </BrowserRouter>
+            <Route path="/pl"></Route>
+            <Route path={"*"} element={<NoPage />} />
+          </Routes>
+        </BrowserRouter>
+      </UserProvider>
     </CartProvider>
   );
 }

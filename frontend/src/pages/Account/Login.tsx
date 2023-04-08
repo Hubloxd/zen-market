@@ -1,12 +1,13 @@
 import "./account.css";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { API_URL } from "../../constants";
 import { useDocumentTitle } from "../../utils";
 
 import Navbar from "../Navbar";
+import { UserContext } from "../../contexts/user";
 
 export const LoginForm = () => {
   const [formData, setFormData] = useState({
@@ -97,6 +98,13 @@ export const LoginForm = () => {
 };
 
 export default function Login() {
+  const navigate = useNavigate();
+  const { isLogged } = useContext(UserContext);
+
+  if (isLogged()) {
+    navigate("/account/profile/");
+  }
+
   useDocumentTitle("Zen Market | Log In");
   return (
     <>
