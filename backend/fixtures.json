@@ -56,5 +56,24 @@
       "sale": true ,
       "image_src": "/static/img/placeholder.webp"
     }
+  },
+  {"model": "shop.shopuser",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$bd6ZBAjNBv22gChBJV8KRG$+hVr3H4CZA7e/kktY8eD4Mf7iG7Ose02mCN/l4IUEqU=",
+      "last_login": "2023-04-08T13:48:51.395Z",
+      "is_superuser": true,
+      "username": "admin",
+      "first_name": "",
+      "last_name": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2023-04-08T13:48:39.544Z",
+      "phone_number": null,
+      "balance": 100.0,
+      "email": "admin@example.com",
+      "groups": [],
+      "user_permissions": []
+    }
   }
 ]
