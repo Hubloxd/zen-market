@@ -15,7 +15,12 @@ export interface User {
   balance: number;
 }
 
-export const API_URL = "http://127.0.0.1:8000/api/v1/";
+export interface Transaction {
+  name: string;
+  price: number;
+  date: string;
+  payment_method: "credit_card" | "balance";
+  status: "active" | "delivered";
+}
 
-const foo = () => {};
-export default foo;
+export const API_URL = "http://127.0.0.1:8000/api/v1/";
