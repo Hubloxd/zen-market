@@ -42,3 +42,7 @@ class Transaction(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     owner = models.ForeignKey(ShopUser, on_delete=models.CASCADE)
     date = models.DateField(default=datetime.today)
+    payment_method = models.CharField(max_length=11, choices=[
+        ('balace', 'Balance'),
+        ('credit_card', 'Credit Card'),
+    ])
