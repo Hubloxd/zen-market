@@ -1,6 +1,5 @@
-import { useRef, useEffect, useContext } from "react";
+import { useRef, useEffect } from "react";
 import { API_URL, User } from "./constants";
-import { UserContext } from "./contexts/user";
 
 export function useDocumentTitle(
   title = "Zen Market",

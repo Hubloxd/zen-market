@@ -68,12 +68,6 @@ const Cart = () => {
             {cart.length}
           </div>
         ) : null}
-        {/* <h2>Shopping Cart</h2> */}
-        {/* {cart.length === 0 && <p>Your cart is empty</p>} */}
-        {/* {cart.map((item) => (
-            <div>{cart.length}</div>
-            ))} */}
-        {/* {cart.length} */}
       </div>
     </Link>
   );
@@ -151,11 +145,9 @@ export default function Navbar() {
           </nav>
         </nav>
         <nav>
-          <Link to={"/"}>Home</Link>
+          <Link to={"/"}>Latest</Link>
         </nav>
-        <nav>
-          <Link to={"/"}>Home</Link>
-        </nav>
+
         <nav className=" bg-orange-500">
           <Link to={"/search?tag=sale"}>SALES</Link>
         </nav>
