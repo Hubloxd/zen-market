@@ -12,17 +12,6 @@ class Product(models.Model):
     image_src = models.CharField(max_length=1024, null=True, blank=True)
     sale = models.BooleanField(default=False)
 
-    def to_dict(self) -> dict[str: str | float]:
-        return {
-            'id': self.pk,
-            'name': self.name,
-            'description': self.description,
-            'price': self.price,
-            'discount_price': self.discount_price,
-            'image_src': self.image_src,
-            'sale': self.sale
-        }
-
     def __str__(self):
         return self.name
 
