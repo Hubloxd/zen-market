@@ -8,6 +8,8 @@ import { API_URL } from "../../constants";
 export function RegisterForm() {
   const [formData, setFormData] = useState({
     username: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -16,7 +18,13 @@ export function RegisterForm() {
   const navigate = useNavigate();
 
   const handleChange = (
-    key: "username" | "password" | "email" | "confirmPassword",
+    key:
+      | "username"
+      | "password"
+      | "email"
+      | "confirmPassword"
+      | "firstName"
+      | "lastName",
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     formData[key] = event.target.value;
@@ -27,13 +35,20 @@ export function RegisterForm() {
     setError(null);
     event.preventDefault();
 
-    const { username, email, password, confirmPassword } = formData;
+    const { username, email, firstName, lastName, password, confirmPassword } =
+      formData;
     const csrftoken = getCookie("csrftoken");
 
     const validateInputs = () => {
       let error = "";
       if (!username) {
         error += "Username must not be empty. ";
+      }
+      if (!firstName) {
+        error += "First Name must not be empty. ";
+      }
+      if (!lastName) {
+        error += "Last Name must not be empty. ";
       }
       if (!email) {
         error += "Email must not be empty. ";
@@ -60,13 +75,15 @@ export function RegisterForm() {
         },
         body: JSON.stringify({
           username,
+          first_name: firstName,
+          last_name: lastName,
           email,
           password,
         }),
       });
       const data = await response.json();
       console.log(data);
-      navigate('/account/login/')
+      navigate("/account/login/");
     } catch (error: any) {
       console.error(error);
       setError(error.message);
@@ -87,28 +104,42 @@ export function RegisterForm() {
         type="text"
         name="username"
         id="username"
-        placeholder="username"
+        placeholder="Username"
+      />
+      <input
+        onChange={(e) => handleChange("firstName", e)}
+        type="text"
+        name="first_name"
+        id="firstName"
+        placeholder="First Name"
+      />
+      <input
+        onChange={(e) => handleChange("lastName", e)}
+        type="text"
+        name="last_name"
+        id="lastName"
+        placeholder="Last Name"
       />
       <input
         onChange={(e) => handleChange("email", e)}
         type="email"
         name="email"
         id="email"
-        placeholder="email"
+        placeholder="Email"
       />
       <input
         onChange={(e) => handleChange("password", e)}
         type="password"
         name="password"
         id="password"
-        placeholder="password"
+        placeholder="Password"
       />
       <input
         onChange={(e) => handleChange("confirmPassword", e)}
         type="password"
         name="confirm-password"
         id="confirm-password"
-        placeholder="confirm password"
+        placeholder="Confirm Password"
       />
 
       {error ? (
@@ -116,15 +147,18 @@ export function RegisterForm() {
       ) : null}
 
       <div className="flex flex-row w-full justify-between mt-5 items-center">
-        <Link to={"/account/register"}>
-          <button className="">Register</button>
-        </Link>
         <button
           className="w-1/3 border rounded-lg py-2 transition-colors hover:bg-black hover:text-white"
           type="submit"
         >
           Submit
         </button>
+        <div className="flex flex-col">
+          <span className="font-extralight">already registered?</span>
+          <Link to={"/account/login/"}>
+            <button className="float-right">Log In</button>
+          </Link>
+        </div>
       </div>
     </form>
   );
