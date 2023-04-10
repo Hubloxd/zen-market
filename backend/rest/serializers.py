@@ -50,7 +50,7 @@ class BasicUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ShopUser
-        fields = ['username', 'email', 'password']
+        fields = ['username', 'first_name', 'last_name', 'email', 'password', ]
 
         extra_kwargs = {'password': {'write_only': True}}
 
