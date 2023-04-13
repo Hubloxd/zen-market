@@ -1,9 +1,10 @@
-import { useContext, useEffect, useState } from "react";
-
+import { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import Navbar from "../Navbar";
-import { APIProduct, API_URL } from "../../constants";
+
+import { API_URL, APIProduct } from "../../constants";
+
 import { CartContext } from "../../contexts/cart";
 import { useDocumentTitle } from "../../utils";
 
@@ -32,7 +33,7 @@ const Product = ({ product }: { product: APIProduct }) => {
       <h1 className="capitalize font-bold text-2xl mt-4">{product.name}</h1>
       {product.discount_price ? (
         <span className="text-xl mt-2">
-          <s className="font-light">${product.price.toFixed(2)}</s> $
+          <s className="font-light">${product.price}</s> $
           {product.discount_price}
         </span>
       ) : (
@@ -45,6 +46,7 @@ const Product = ({ product }: { product: APIProduct }) => {
             id: product.id,
             name: product.name,
             price: product.price,
+            discount_price: product.discount_price,
             image_src: product.image_src,
           })
         }
@@ -60,13 +62,10 @@ const ProductList = () => {
   const products: Array<JSX.Element> = [];
 
   useEffect(() => {
-    const fetchData = () => {
-      fetch(API_URL + "products/")
-        .then((response) => response.json())
-        .then((response) => setData(response))
-        .catch((e) => console.error(e));
-    };
-    fetchData();
+    fetch(API_URL + "products/")
+      .then((response) => response.json())
+      .then((response) => setData(response))
+      .catch((e) => console.error(e));
   }, []);
 
   data?.forEach((element) =>
@@ -82,7 +81,7 @@ const ProductList = () => {
   );
 };
 
-export default function Home() {
+const HomePage = () => {
   useDocumentTitle("Zen Market | Home Page");
   return (
     <>
@@ -92,4 +91,6 @@ export default function Home() {
       </section>
     </>
   );
-}
+};
+
+export default HomePage;
