@@ -1,9 +1,5 @@
-# from django.db import IntegrityError
-from abc import ABCMeta
-
 from django.contrib.auth import authenticate
-from rest_framework import serializers, permissions
-from rest_framework.utils.model_meta import get_field_info
+from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
 from shop.models import *
@@ -50,9 +46,9 @@ class BasicUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ShopUser
-        fields = ['username', 'first_name', 'last_name', 'email', 'password', ]
+        fields = ['username', 'first_name', 'last_name', 'email', 'password', 'phone_number', 'balance']
 
-        extra_kwargs = {'password': {'write_only': True}}
+        extra_kwargs = {'password': {'write_only': True}, 'balance': {'read_only': True}}
 
     def create(self, validated_data):
         password = validated_data.pop('password')
@@ -60,6 +56,43 @@ class BasicUserSerializer(serializers.ModelSerializer):
         user.set_password(password)
         user.save()
         return user
+
+
+class UpdateUserSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(
+        validators=[UniqueValidator(queryset=ShopUser.objects.all(), message='This email is already registered')],
+        required=False
+    )
+    phone_number = serializers.IntegerField(
+        validators=[
+            UniqueValidator(queryset=ShopUser.objects.all(), message='This phone number is already registered')
+        ],
+        required=False
+    )
+    password = serializers.CharField(write_only=True, required=False)
+
+    class Meta:
+        model = ShopUser
+        fields = ['username', 'first_name', 'last_name', 'password', 'phone_number', 'email']
+        extra_kwargs = {
+            'username': {'required': False},
+            'first_name': {'required': False},
+            'last_name': {'required': False},
+            'phone_number': {'required': False},
+        }
+
+    def update(self, instance, validated_data):
+        for key in validated_data:
+            if value := validated_data[key]:
+                value = '' if value == '_null' else value
+                instance.__setattr__(key, value)
+
+        password = validated_data.get('password')
+        if password:
+            instance.set_password(password)
+
+        instance.save()
+        return instance
 
 
 class LoginSerializer(serializers.Serializer):
