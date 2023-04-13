@@ -1,9 +1,11 @@
 from django.contrib.auth import login
 
 from rest_framework import status, viewsets, permissions, views
+from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from rest.serializers import ProductSerializer, UserSerializer, BasicUserSerializer, LoginSerializer
+from rest.serializers import ProductSerializer, UserSerializer, BasicUserSerializer, LoginSerializer, \
+    UpdateUserSerializer
 from shop.models import Product, ShopUser
 
 
@@ -58,13 +60,14 @@ class UserViewSet(viewsets.ModelViewSet):
         creating the user is not a superuser, the BasicUserSerializer serializer is used instead of the default
         UserSerializer. For all other actions, only admin users are allowed to access them.
         """
-        if self.action in ('list', 'retrieve',):
+        if not self.request.user.is_superuser:
+            self.serializer_class = BasicUserSerializer
+
+        if self.action in ['list', 'retrieve', 'change']:
             permission_classes = [permissions.IsAuthenticated]
-        elif self.action == 'metadata':
-            permission_classes = [permissions.AllowAny]
-        elif self.action == 'create':
-            if not self.request.user.is_superuser:
-                self.serializer_class = BasicUserSerializer
+            if self.action == 'change':
+                self.serializer_class = UpdateUserSerializer
+        elif self.action == ['create', 'metadata']:
             permission_classes = [permissions.AllowAny]
         else:
             permission_classes = [permissions.IsAdminUser]
@@ -78,7 +81,6 @@ class UserViewSet(viewsets.ModelViewSet):
         ShopUser objects.
         """
         queryset = ShopUser.objects.all()
-
         user: ShopUser = self.request.user
 
         if user.is_superuser:
@@ -99,6 +101,19 @@ class UserViewSet(viewsets.ModelViewSet):
             user.save()
             return Response(user.data)
         return Response(user.errors)
+
+    @action(detail=False, methods=['get', 'post'])
+    def change(self, request):
+        user = self.request.user
+
+        if user and user.is_authenticated:
+            user = self.serializer_class(instance=user, data=self.request.data, partial=True)
+            if not user.is_valid():
+                return Response(user.errors)
+            user.save()
+            return Response(user.data)
+
+        return Response('', status=status.HTTP_401_UNAUTHORIZED)
 
 
 class LoginView(views.APIView):
