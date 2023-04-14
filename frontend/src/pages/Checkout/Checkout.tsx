@@ -16,7 +16,7 @@ export default function Checkout() {
     if (!isLogged()) {
       navigate("/account/");
     }
-  }, [isLogged]);
+  }, []);
 
   useDocumentTitle("Zen Market | Checkout");
   const { cart, removeItemFromCart, resetCart } = useContext(CartContext);
