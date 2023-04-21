@@ -1,12 +1,13 @@
 from django.contrib.auth import login
+from django.db import DatabaseError, transaction as database_transaction
 
 from rest_framework import status, viewsets, permissions, views
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from rest.serializers import ProductSerializer, UserSerializer, BasicUserSerializer, LoginSerializer, \
-    UpdateUserSerializer
-from shop.models import Product, ShopUser
+    UpdateUserSerializer, TransactionSerializer
+from shop.models import Product, ShopUser, Transaction
 
 
 class ProductsViewSet(viewsets.ModelViewSet):
@@ -67,7 +68,7 @@ class UserViewSet(viewsets.ModelViewSet):
             permission_classes = [permissions.IsAuthenticated]
             if self.action == 'change':
                 self.serializer_class = UpdateUserSerializer
-        elif self.action == ['create', 'metadata']:
+        elif self.action in ['create', 'metadata']:
             permission_classes = [permissions.AllowAny]
         else:
             permission_classes = [permissions.IsAdminUser]
@@ -104,28 +105,82 @@ class UserViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['get', 'post'])
     def change(self, request):
-        user = self.request.user
-
-        if user and user.is_authenticated:
-            user = self.serializer_class(instance=user, data=self.request.data, partial=True)
-            if not user.is_valid():
-                return Response(user.errors)
+        user = request.user
+        if not user:
+            return Response('', status=status.HTTP_401_UNAUTHORIZED)
+        serializer = self.serializer_class(user, data=request.data, partial=True)
+        if serializer.is_valid():
+            if 'email' in serializer.validated_data:
+                user.email = serializer.validated_data['email']
+            if 'password' in serializer.validated_data:
+                user.set_password(serializer.validated_data['password'])
             user.save()
-            return Response(user.data)
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        return Response('', status=status.HTTP_401_UNAUTHORIZED)
+
+def handle_balance_payment(user, product):
+    try:
+        with database_transaction.atomic():
+            user.refresh_from_db()
+            price = product.discount_price or product.price
+            if price <= user.balance:
+                user.balance -= price
+                user.save(update_fields=['balance'])
+            else:
+                return Response({'error': "Insufficient funds"}, status=status.HTTP_403_FORBIDDEN)
+    except DatabaseError:
+        return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+def handle_credit_card_payment(request, transaction):
+    # HANDLE CREDIT CARD PAYMENT
+    pass
+
+
+class TransactionViewSet(viewsets.ModelViewSet):
+    queryset = Transaction.objects.all()
+    serializer_class = TransactionSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_superuser:
+            return Transaction.objects.all()
+        elif user.is_authenticated:
+            return Transaction.objects.filter(shop_user_id=user.id)
+        else:
+            return Transaction.objects.none()
+
+    def get_permissions(self):
+        if self.action in ['list', 'retrieve', 'create']:
+            permission_classes = [permissions.IsAuthenticated]
+        else:
+            permission_classes = [permissions.IsAdminUser]
+        return [permission() for permission in permission_classes]
+
+    def create(self, request, *args, **kwargs):
+        transaction = self.serializer_class(data=request.data)
+        transaction.is_valid(raise_exception=True)
+        user = request.user
+
+        product = transaction.validated_data['product']
+        payment_method = transaction.validated_data['payment_method']
+
+        transaction.save(shop_user=user)
+        return Response(transaction.data)
 
 
 class LoginView(views.APIView):
     permission_classes = [permissions.AllowAny]
     serializer_class = LoginSerializer
 
-    def post(self, request):
+    def post(self, *args, **kwargs):
         serializer = LoginSerializer(data=self.request.data, context={'request': self.request})
         if not serializer.is_valid():
             return Response(None, status=status.HTTP_401_UNAUTHORIZED)
 
         user = serializer.validated_data['user']
-        login(request, user)
+        login(self.request, user)
 
         return Response(None, status=status.HTTP_202_ACCEPTED)

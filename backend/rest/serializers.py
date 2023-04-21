@@ -118,3 +118,23 @@ class LoginSerializer(serializers.Serializer):
 
         attrs['user'] = user
         return attrs
+
+
+class TransactionSerializer(serializers.ModelSerializer):
+    name = serializers.SerializerMethodField()
+    price = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Transaction
+        fields = '__all__'
+        extra_kwargs = {'shop_user': {'read_only': True},
+                        'name': {'read_only': True},
+                        'price': {'read_only': True},
+                        'status': {'read_only': True},
+                        }
+
+    def get_name(self, obj):
+        return obj.product.name
+
+    def get_price(self, obj):
+        return obj.product.discount_price or obj.product.price
