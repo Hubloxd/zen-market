@@ -1,79 +1,87 @@
 [
-  {
+{
     "model": "shop.product",
     "pk": 1,
     "fields": {
-      "name": "Product 1",
-      "description": "This is the first product",
-      "price": 23.45,
-      "discount_price": 12,
-      "sale": true ,
-      "image_src": "/static/img/placeholder.webp"
+        "name": "Product 1",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porta lectus turpis, eget ultrices nisi pulvinar in. Curabitur justo turpis, posuere quis condimentum quis, tempor eget risus. Maecenas posuere, orci sed laoreet venenatis, ante magna fermentum odio, vitae pellentesque lectus lacus at erat. Duis ornare sapien non arcu molestie lobortis. Morbi ultrices placerat tellus. In ac massa sit amet eros efficitur congue. Morbi dictum venenatis erat, vel elementum libero sodales nec.",
+        "price": "9.99",
+        "discount_price": null,
+        "image_src": "static/img/placeholder_1qyKaU5.webp",
+        "sale": false,
+        "created_at": "2023-04-13T21:08:35.725Z"
     }
-  },
-  {
+},
+{
     "model": "shop.product",
     "pk": 2,
     "fields": {
-      "name": "Product 2",
-      "description": "This is the second product",
-      "price": 56.78,
-      "sale": false ,
-      "image_src": "/static/img/placeholder.webp"
+        "name": "Product 2",
+        "description": "Aliquam lorem est, cursus ut iaculis vitae, sodales non massa. Vivamus vel fermentum diam. Nullam nec efficitur nibh. Nunc id sodales mauris. Maecenas mi sapien, placerat ut arcu eu, faucibus facilisis metus. Proin ac ex eu magna pulvinar consectetur quis vitae dui. Pellentesque porttitor enim vitae aliquam blandit. Aenean quis fermentum est, at vulputate felis. Ut a maximus metus.",
+        "price": "9.99",
+        "discount_price": "4.99",
+        "image_src": "static/img/placeholder.webp",
+        "sale": true,
+        "created_at": "2023-04-13T21:11:39.388Z"
     }
-  },
-  {
+},
+{
     "model": "shop.product",
     "pk": 3,
     "fields": {
-      "name": "Product 3",
-      "description": "This is the third product",
-      "price": 12.34,
-      "sale": false,
-      "image_src": "/static/img/placeholder.webp"
+        "name": "Product 3",
+        "description": "Curabitur aliquet pellentesque neque eget interdum. Vestibulum ac est diam. Ut pulvinar pretium nulla, sit amet faucibus felis porttitor ac. Aliquam et ullamcorper ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam gravida urna sed dui malesuada volutpat. Proin eget mauris sed dui vulputate feugiat vitae eget elit. Mauris convallis sed mi aliquam dapibus. Mauris tincidunt blandit tincidunt. Aenean quis nunc sit amet leo semper rutrum.",
+        "price": "99.99",
+        "discount_price": "49.99",
+        "image_src": "static/img/placeholder_UorIwAu.webp",
+        "sale": true,
+        "created_at": "2023-04-13T21:12:01.720Z"
     }
-  },
-  {
+},
+{
     "model": "shop.product",
     "pk": 4,
     "fields": {
-      "name": "Product 4",
-      "description": "This is the forth product",
-      "price": 114,
-      "discount_price": 99,
-      "sale": true ,
-      "image_src": "/static/img/placeholder.webp"
+        "name": "Product 4",
+        "description": "Integer arcu nunc, euismod ac nulla eget, egestas consectetur tellus. Proin eu tempus diam. Aenean sed velit vitae tortor sollicitudin tristique. Donec et sollicitudin nunc. Donec eu mollis neque, et consectetur lorem. Aenean blandit elementum enim non fringilla. Pellentesque posuere rhoncus tortor. Suspendisse vitae elit a metus pretium varius. Aliquam in mauris mollis, laoreet neque non, fringilla quam.",
+        "price": "12.34",
+        "discount_price": null,
+        "image_src": "static/img/placeholder_NwFrHc8.webp",
+        "sale": false,
+        "created_at": "2023-04-13T21:12:19.606Z"
     }
-  },
-  {
+},
+{
     "model": "shop.product",
     "pk": 5,
     "fields": {
-      "name": "Product 5",
-      "description": "This is the fifth product",
-      "price": 1.5,
-      "discount_price": 0.75,
-      "sale": true ,
-      "image_src": "/static/img/placeholder.webp"
+        "name": "Product 5",
+        "description": "In quis pretium nunc. Donec a venenatis dolor, sed tincidunt ipsum. Suspendisse volutpat neque viverra, eleifend ex in, hendrerit mi. Aliquam erat volutpat. Quisque a lorem eget turpis bibendum aliquam non at nulla. Duis gravida fringilla tincidunt. Quisque fermentum mattis convallis. Duis maximus libero sit amet risus porta blandit. Quisque ac ornare neque. Morbi cursus felis et libero faucibus, eu tincidunt dolor dignissim. Integer eu ligula quis massa ullamcorper semper a in ante. Mauris at iaculis felis, et venenatis dolor.",
+        "price": "19.99",
+        "discount_price": null,
+        "image_src": "static/img/placeholder_zHx9nrE.webp",
+        "sale": false,
+        "created_at": "2023-04-13T21:12:38.282Z"
     }
-  },
-  {"model": "shop.shopuser",
+},
+{
+    "model": "shop.shopuser",
     "pk": 1,
     "fields": {
-      "password": "pbkdf2_sha256$600000$bd6ZBAjNBv22gChBJV8KRG$+hVr3H4CZA7e/kktY8eD4Mf7iG7Ose02mCN/l4IUEqU=",
-      "last_login": "2023-04-08T13:48:51.395Z",
-      "is_superuser": true,
-      "username": "admin",
-      "first_name": "",
-      "last_name": "",
-      "is_staff": true,
-      "is_active": true,
-      "date_joined": "2023-04-08T13:48:39.544Z",
-      "phone_number": null,
-      "balance": 100.0,
-      "email": "admin@example.com",
-      "groups": [],
-      "user_permissions": []
+        "password": "pbkdf2_sha256$600000$zGYnukbiMjadooCZBJCxTf$q06qNKVXdq+CBNq251PRm056aCUnXw5X4CoemRVPaj4=",
+        "last_login": "2023-04-13T21:08:21.296Z",
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2023-04-13T21:04:53.627Z",
+        "phone_number": null,
+        "balance": "100.00",
+        "email": "admin@a.com",
+        "groups": [],
+        "user_permissions": []
     }
-  }
+}
 ]
