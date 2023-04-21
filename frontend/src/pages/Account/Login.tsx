@@ -1,6 +1,6 @@
 import "./account.css";
 
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { API_URL } from "../../constants";
@@ -48,7 +48,7 @@ export const LoginForm = () => {
       if (error === 401) {
         setError("Access denied: wrong username or password.");
       } else {
-        setError("Unexpected error");
+        setError("Unexpected error:" + error);
       }
     }
   };
@@ -101,9 +101,11 @@ export default function Login() {
   const navigate = useNavigate();
   const { isLogged } = useContext(UserContext);
 
-  if (isLogged()) {
-    navigate("/account/profile/");
-  }
+  useEffect(() => {
+    if (isLogged()) {
+      navigate("/account/profile/");
+    }
+  }, []);
 
   useDocumentTitle("Zen Market | Log In");
   return (

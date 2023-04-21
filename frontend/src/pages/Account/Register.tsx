@@ -2,8 +2,9 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 import Navbar from "../Navbar";
-import { getCookie, useDocumentTitle } from "../../utils";
 import { API_URL } from "../../constants";
+import { getCookie, useDocumentTitle } from "../../utils";
+
 
 export function RegisterForm() {
   const [formData, setFormData] = useState({
@@ -27,8 +28,10 @@ export function RegisterForm() {
       | "lastName",
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    formData[key] = event.target.value;
-    setFormData(formData);
+    setFormData({
+      ...formData,
+      [key]: event.target.value,
+    });
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -70,7 +73,7 @@ export function RegisterForm() {
       const response = await fetch(API_URL + "users/", {
         method: "POST",
         headers: {
-          Cookie: `csrftoken=${csrftoken};`,
+          Cookie: `X-CSRF-Token=${csrftoken};`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({

@@ -7,20 +7,22 @@ export interface APIProduct {
   image_src: string;
   sale: boolean;
 }
-export interface User {
+export interface UserInterface {
   email: string;
   username: string;
   first_name: string;
   last_name: string;
   balance: number;
+  phone_number: number;
 }
 
-export interface Transaction {
+export interface TransactionInterface {
+  id: number,
   name: string;
   price: number;
   date: string;
   payment_method: "credit_card" | "balance";
-  status: "active" | "delivered";
+  status: "processing" | "shipped" | "canceled";
 }
 
 export const API_URL = "http://127.0.0.1:8000/api/v1/";

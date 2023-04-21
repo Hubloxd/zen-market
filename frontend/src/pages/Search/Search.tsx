@@ -2,12 +2,21 @@ import { useContext, useEffect, useState } from "react";
 import { APIProduct, API_URL } from "../../constants";
 import { CartContext } from "../../contexts/cart";
 import { useDocumentTitle } from "../../utils";
-
 import Navbar from "../Navbar";
 import { Link } from "react-router-dom";
 
 const Product = ({ product }: { product: APIProduct }) => {
   const { addItemToCart } = useContext(CartContext);
+
+  const handleAddToCart = () => {
+    addItemToCart({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      discount_price: product.discount_price,
+      image_src: product.image_src,
+    });
+  };
 
   return (
     <div
@@ -31,7 +40,7 @@ const Product = ({ product }: { product: APIProduct }) => {
       <h1 className="capitalize font-bold text-2xl mt-4">{product.name}</h1>
       {product.discount_price ? (
         <span className="text-xl mt-2">
-          <s className="font-light">${product.price.toFixed(2)}</s> $
+          <s className="font-light">${Number(product.price).toFixed(2)}</s> $
           {product.discount_price}
         </span>
       ) : (
@@ -39,14 +48,7 @@ const Product = ({ product }: { product: APIProduct }) => {
       )}
       <button
         className="border rounded-lg border-black py-3 px-2 mt-16 mb-5 hover:bg-black hover:text-white transition-all duration-300"
-        onClick={() =>
-          addItemToCart({
-            id: product.id,
-            name: product.name,
-            price: product.price,
-            image_src: product.image_src,
-          })
-        }
+        onClick={() => handleAddToCart()}
       >
         Add to basket
       </button>
@@ -56,34 +58,32 @@ const Product = ({ product }: { product: APIProduct }) => {
 
 export default function Search() {
   useDocumentTitle("Zen Market | Search");
-  const [data, setData] = useState<Array<APIProduct>>();
-  const products: Array<JSX.Element> = [];
+
+  const [data, setData] = useState<APIProduct[] | undefined>();
 
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);
-    let query = queryParams.get("q")?.trim();
-    let tag = queryParams.get("tag")?.trim();
+    const query = queryParams.get("q")?.trim() ?? "";
+    const tag = queryParams.get("tag")?.trim() ?? "";
 
-    if (!query) {
-      query = "";
-    }
-    if (!tag) {
-      tag = "";
-    }
-
-    const fetchData = () => {
-      fetch(API_URL + `products/?name=${query}&tag=${tag}`)
-        .then((response) => response.json())
-        .then((response) => setData(response))
-        .catch((err) => console.error(err));
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `${API_URL}products/?name=${query}&tag=${tag}`
+        );
+        const data = await response.json();
+        setData(data);
+      } catch (error) {
+        console.error(error);
+      }
     };
 
     fetchData();
   }, []);
 
-  data?.forEach((element) =>
-    products.push(<Product product={element} key={element.id} />)
-  );
+  const products = data?.map((product) => (
+    <Product product={product} key={product.id} />
+  ));
 
   return (
     <>
