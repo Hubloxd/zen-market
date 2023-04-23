@@ -286,7 +286,7 @@ const Stage2 = ({
 
 const Stage3 = ({ summary }: { summary: SummaryInterface }) => {
   const [error, setError] = useState("");
-  const { cart } = useContext(CartContext);
+  const { cart, resetCart } = useContext(CartContext);
   const navigate = useNavigate();
   const { payment_method } = summary;
 
@@ -320,6 +320,7 @@ const Stage3 = ({ summary }: { summary: SummaryInterface }) => {
         });
         const data = await response.json();
         console.log(data);
+        resetCart();
         navigate("/account/profile/");
       } catch (error: any) {
         console.error(error);
