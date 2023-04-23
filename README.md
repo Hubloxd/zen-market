@@ -4,9 +4,9 @@
 
 <h2>Features</h2>
 <ul>
-  <li>Homepage with a featured product section, categories section, and footer with contact information and social media links.</li>
+  <li>Homepage with a featured product section</li>
   <li>Product catalog page that displays a grid of products, with filtering and sorting options.</li>
-  <li>Product detail page that provides information about the product, its images, and reviews.</li>
+  <li>Product detail page that provides information about the product and its image</li>
   <li>Shopping cart page that shows the items in the cart, with the option to remove them.</li>
   <li>Checkout page that collects shipping and billing information, and allows customers to review their order before placing it.</li>
 </ul>
