@@ -41,3 +41,4 @@
 
 <hr/>
 <p><i>I hope you enjoyed exploring the Zen Market mockup shop project and find it useful for learning web development or testing e-commerce features. Please let me know if you have any feedback or questions.</i></p>
+<p>This project is designed for educational purposes. It aimed to help me develop new skills and knowledge through research and experimentation. The project is not intended for commercial use, but rather to supplement and enhance my existing knowledge and skills.</p>
