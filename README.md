@@ -15,12 +15,12 @@
 
 <h2>Screenshots</h2>
 <p>Take a look at some of the pages of Zen Market mockup shop:</p>
-<img src=".github-screenshots/dashboard.jpg" width=512 height=256>
-<img src=".github-screenshots/checkout_summary.jpg" width=512 height=256>
-<img src=".github-screenshots/homepage.jpg" width=512 height=256>
-<img src=".github-screenshots/orders.jpg" width=512 height=256>
-<img src=".github-screenshots/product_page.jpg" width=512 height=256>
-<img src=".github-screenshots/sales.jpg" width=512 height=256>
+<img src=".github-screenshots/dashboard.jpg" alt="Dashboard" width=512 height=256>
+<img src=".github-screenshots/checkout_summary.jpg" alt="Checkout Summary" width=512 height=256>
+<img src=".github-screenshots/homepage.jpg" alt="Homepage" width=512 height=256>
+<img src=".github-screenshots/orders.jpg" alt="Orders" width=512 height=256>
+<img src=".github-screenshots/product_page.jpg" alt="Product Detail" width=512 height=256>
+<img src=".github-screenshots/sales.jpg" alt="Sales Page" width=512 height=256>
 <h2>Getting Started</h2>
 <p>To run the Zen Market mockup shop project:</p>
 <ol>
