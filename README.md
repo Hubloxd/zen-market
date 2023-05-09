@@ -31,7 +31,7 @@
   <li>Open a web browser and navigate to the URL <code>localhost:8000</code> to view the website</li>
 </ol>
 
-<p>If you would like to populate the website with sample data, you can do so by running the command <code>python manage.py loaddata fixtures.json</code> in the backend directory of the project. This will load a set of sample products and reviews into the database.</p>
+<p>If you would like to populate the website with sample data, you can do so by running the command <code>python manage.py loaddata fixtures.json</code> in the backend directory of the project. This will load a set of sample products and an admin user.</p>
 
 <h3>Contributing</h3>
 <p>Contributions to the Zen Market mockup shop project are welcome! Feel free to open an issue or submit a pull request if you have any suggestions or improvements.</p>
